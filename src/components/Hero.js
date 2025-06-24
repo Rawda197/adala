@@ -1,71 +1,66 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
-const Hero = () => {
-  const fullText = "Growth Marketing - Digital Excellence Partner";
-  const [displayedText, setDisplayedText] = useState("");
-  const [index, setIndex] = useState(0);
+const sliderImages = [
+  "/images/1.jpg",
+  "/images/2.jpg",
+  "/images/3.jpg",
+  "/images/4.jpg",
+  "/images/5.jpg",
+  "/images/6.jpg",
+  "/images/7.jpg",
+  "/images/8.jpg",
+];
 
-  useEffect(() => {
-    const typingSpeed = 100;
-    const resetDelay = 2000;
-
-    const timeout = setTimeout(() => {
-      if (index < fullText.length) {
-        setDisplayedText((prev) => prev + fullText[index]);
-        setIndex((prev) => prev + 1);
-      } else {
-        setTimeout(() => {
-          setDisplayedText("");
-          setIndex(0);
-        }, resetDelay);
-      }
-    }, typingSpeed);
-
-    return () => clearTimeout(timeout);
-  }, [index, fullText]);
-
+export default function Hero() {
   return (
-    <section className="bg-white text-primary py-16 md:py-24">
-      <div className="container mx-auto px-6 flex flex-col-reverse md:flex-row items-center justify-between gap-12">
-        {/* النصوص */}
-        <div className="w-full md:w-1/2 text-center md:text-left">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-6 min-h-[110px]">
-            {displayedText}
-            <span className="animate-pulse">|</span>
-          </h1>
-          <p className="text-lg mb-8 text-gray-700">
-            We help brands Growth Marketing creative digital marketing,
-            social media strategies, and smart business campaigns.
-          </p>
-          <Link
-            href="/services"
-            className="inline-block bg-primary text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-primary-light transition duration-300"
+    <section className="w-full">
+      <div className="grid grid-cols-1 lg:grid-cols-2">
+        {/* سلايدر الصور */}
+        <div className="h-[250px] md:h-[450px] lg:h-screen">
+          <Swiper
+            modules={[Autoplay, Pagination, Navigation]}
+            autoplay={{ delay: 3000 }}
+            loop={true}
+            pagination={{ clickable: true }}
+            navigation={true}
+            className="w-full h-full"
           >
-            Get Started
-          </Link>
+            {sliderImages.map((src, index) => (
+              <SwiperSlide key={index}>
+                <div className="relative w-full h-full">
+                  <Image
+                    src={src}
+                    alt={`صورة محاسبة ${index + 1}`}
+                    fill
+                    className="object-cover"
+                    priority={index === 0}
+                  />
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
 
-        {/* صورة متجاوبة ومؤثرات حولها */}
-        <div className="w-full md:w-1/2 flex justify-center">
-          <div className="relative w-[90%] max-w-[500px] transition-transform duration-500 hover:scale-105">
-            <Image
-              src="/1.svg"
-              alt="Growth Marketing"
-              width={500}
-              height={500}
-              className="w-full h-auto object-contain rounded-xl"
-            />
-            {/* تأثير الحواف البيضاء الشفافة */}
-            <div className="absolute inset-0 rounded-xl border-[8px] border-primary opacity-40 pointer-events-none" />
+        {/* النص الترحيبي */}
+        <div className="flex items-center justify-center bg-green-50 px-6 py-10 lg:py-0">
+          <div className="text-center lg:text-right max-w-xl">
+            <h1 className="text-2xl md:text-4xl font-bold text-green-800 mb-4">
+              مرحبًا بك في مكتب ميزان للمحاسبة
+            </h1>
+            <p className="text-gray-700 text-sm md:text-lg leading-relaxed">
+              نحن نقدم لك أفضل الحلول المحاسبية والاستشارات المالية بإتقان ومهنية،
+              لمساعدتك في تنمية أعمالك وتحقيق أهدافك بكل ثقة.
+            </p>
           </div>
         </div>
       </div>
     </section>
   );
-};
-
-export default Hero;
+}

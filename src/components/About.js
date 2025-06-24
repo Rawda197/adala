@@ -2,56 +2,35 @@
 
 import Image from "next/image";
 
-const About = () => {
+export default function AboutSection() {
   return (
-    <section className="bg-white py-20 text-gray-800">
-      <div className="container mx-auto px-6 max-w-6xl">
+    <section className="bg-gray-50 py-16 px-4 sm:px-6 lg:px-20">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        {/* صورة عن الشركة */}
+        <div className="relative w-full h-64 md:h-96 rounded-lg overflow-hidden shadow-md">
+          <Image
+            src="/images/about.jpg" // غيري الاسم حسب الصورة
+            alt="عن مكتب ميزان"
+            layout="fill"
+            objectFit="cover"
+            className="rounded-md"
+            priority
+          />
+        </div>
 
-       
-        {/* العنوان الرئيسي */}
-        <h2 className="text-4xl font-bold text-primary text-center mb-6">
-          About Growth Marketing
-        </h2>
-
-        {/* الفقرة التعريفية */}
-        <p className="text-lg text-gray-600 text-center mb-12 max-w-3xl mx-auto">
-          Growth Marketing is a results-driven digital marketing agency focused on empowering brands through tailored strategies. We combine creativity, data, and innovation to grow your business online and build lasting connections with your audience.
-        </p>
-
-        {/* الشبكة الرئيسية */}
-        <div className="grid gap-8 md:grid-cols-3">
-          
-          {/* Mission */}
-          <div className="bg-gray-50 p-6 rounded-lg shadow hover:shadow-md transition">
-            <h3 className="text-xl font-semibold mb-2 text-primary">Our Mission</h3>
-            <p className="text-gray-600 text-sm">
-              Empower businesses by providing customized and impactful digital marketing solutions that deliver measurable results.
-            </p>
-          </div>
-
-          {/* Vision */}
-          <div className="bg-gray-50 p-6 rounded-lg shadow hover:shadow-md transition">
-            <h3 className="text-xl font-semibold mb-2 text-primary">Our Vision</h3>
-            <p className="text-gray-600 text-sm">
-              To be a leading digital agency known for innovation, performance, and excellence in client relationships.
-            </p>
-          </div>
-
-          {/* Values */}
-          <div className="bg-gray-50 p-6 rounded-lg shadow hover:shadow-md transition">
-            <h3 className="text-xl font-semibold mb-2 text-primary">Core Values</h3>
-            <ul className="list-disc pl-5 text-gray-600 text-sm space-y-1">
-              <li>Creativity</li>
-              <li>Data-Driven Decisions</li>
-              <li>Transparency</li>
-              <li>Client Success First</li>
-            </ul>
-          </div>
-
+        {/* محتوى النص */}
+        <div>
+          <h2 className="text-3xl font-bold text-green-700 mb-4">
+            من نحن
+          </h2>
+          <p className="text-gray-700 text-lg leading-relaxed mb-4">
+            نحن في مكتب <span className="font-bold text-green-800">ميزان للمحاسبة</span> نعمل على تقديم حلول محاسبية دقيقة وموثوقة لعملائنا من مختلف المجالات.
+          </p>
+          <p className="text-gray-600 text-base leading-relaxed">
+            هدفنا هو تسهيل العمليات المالية والمساهمة في نمو أعمالك من خلال خبرتنا الطويلة واهتمامنا بأدق التفاصيل، لنكون الشريك المثالي لنجاحك المالي.
+          </p>
         </div>
       </div>
     </section>
   );
-};
-
-export default About;
+}

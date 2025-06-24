@@ -1,82 +1,77 @@
 "use client";
-import { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { FiMenu, FiX } from "react-icons/fi";
 
-const Header = () => {
+import Link from "next/link";
+import Image from "next/image";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
+
+export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const links = [
-    { name: "Home", href: "/" },
-    { name: "services ", href: "/services" },
-    { name: "About", href: "/about" },
-    { name: "Contact", href: "/contact" },
-    { name: "Blog", href: "/articles" },
+  const navLinks = [
+    { name: "الرئيسية", href: "/" },
+    { name: "خدماتنا", href: "/services" },
+    { name: "من نحن", href: "/about" },
+    { name: "الأسئلة الشائعة", href: "/faq" },
+    { name: "المدونة", href: "/blog" },
+    { name: "تواصل معنا", href: "/contact" },
   ];
 
   return (
-    <header className="bg-primary text-white py-4 shadow-md w-full z-50 relative">
-      <div className="container mx-auto px-6 flex items-center justify-between">
+    <header className="bg-green-700 text-white shadow-md sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 md:py-4 relative">
+        {/* اللوجو داخل بيضاوي */}
+        <Link href="/" className="z-20">
+          <div className="bg-white shadow-md p-1 w-24 h-12 md:w-32 md:h-16 flex items-center justify-center rounded-[9999px] overflow-hidden">
+            <Image
+              src="/logo.svg"
+              alt="شعار ميزان"
+              width={120}
+              height={80}
+              className="object-contain"
+              priority
+            />
+          </div>
+        </Link>
 
-       <Link href="/" className="flex-shrink-0 mr-4 ">
-  <div className="w-[80px] h-[80px] bg-white rounded-full flex items-center justify-center cursor-pointer">
-    <Image
-      src="/logo.svg"
-      alt="Logo"
-      width={120}
-      height={120}
-      className="object-contain"
-    />
-  </div>
-</Link>
+        {/* روابط التنقل - لسطح المكتب */}
+        <nav className="hidden md:flex absolute inset-0 items-center justify-center space-x-6 rtl:space-x-reverse">
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              href={link.href}
+              className="hover:text-gray-300 text-lg font-medium"
+            >
+              {link.name}
+            </Link>
+          ))}
+        </nav>
 
-
-        {/* Desktop Menu */}
-<nav className="hidden md:flex flex-1 justify-center">
-  <ul className="flex space-x-8">
-    {links.map((link) => (
-      <li key={link.name}>
-        <a
-          href={link.href}
-          className="text-lg hover:text-primary-light transition duration-300"
+        {/* زر القائمة للموبايل */}
+        <button
+          className="md:hidden z-20"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="قائمة الموبايل"
         >
-          {link.name}
-        </a>
-      </li>
-    ))}
-  </ul>
-</nav>
-
-
-        {/* Mobile Menu Button */}
-        <div className="md:hidden">
-          <button onClick={() => setMenuOpen(!menuOpen)}>
-            {menuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-          </button>
-        </div>
+          {menuOpen ? <X size={30} /> : <Menu size={30} />}
+        </button>
       </div>
 
-      {/* Mobile Dropdown Menu */}
+      {/* القائمة الجانبية للموبايل */}
       {menuOpen && (
-        <nav className="md:hidden bg-primary text-white">
-          <ul className="flex flex-col items-center space-y-4 py-4">
-            {links.map((link) => (
-              <li key={link.name}>
-                <a
-                  href={link.href}
-                  onClick={() => setMenuOpen(false)}
-                  className="text-lg hover:text-primary-light transition duration-300"
-                >
-                  {link.name}
-                </a>
-              </li>
-            ))}
-          </ul>
+        <nav className="md:hidden bg-green-800 px-4 py-3 space-y-2">
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              href={link.href}
+              className="block text-white hover:text-gray-300 text-lg"
+              onClick={() => setMenuOpen(false)}
+            >
+              {link.name}
+            </Link>
+          ))}
         </nav>
       )}
     </header>
   );
-};
-
-export default Header;
+}

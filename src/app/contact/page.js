@@ -1,16 +1,13 @@
 import Header from "../../components/Header";
-import Contact from "../../components/contact";
 import Footer from "../../components/Footer";
+import ContactSection from "../../components/ContactSection";
 
-const ContactPage = () => {
+export default function ContactPage() {
   return (
-    <div>
+    <>
       <Header />
-       <Contact />
-       <Footer />
-    </div>
-  )
- 
-};
-
-export default ContactPage;
+      <ContactSection />
+      <Footer />
+    </>
+  );
+}

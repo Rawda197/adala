@@ -1,3 +1,5 @@
+import lineClamp from '@tailwindcss/line-clamp';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -8,11 +10,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#7B3FE4",         // بنفسجي غامق
-        "primary-light": "#B494F1", // بنفسجي فاتح للهوفر
-        secondary: "#FFFFFF",       // أبيض
+        background: "var(--background)",
+        foreground: "var(--foreground)",
       },
     },
   },
-  plugins: [],
+  plugins: [lineClamp],
 };

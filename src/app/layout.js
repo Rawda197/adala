@@ -12,19 +12,19 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Growth Marketing | Digital Marketing Agency",
-  description: "We help your business grow through creative digital strategies, social media, and targeted advertising campaigns.",
+  title: "مكتب ميزان للمحاسبة",
+  description:
+    "مكتب ميزان هو مكتب محاسبة متخصص في تقديم الحلول المحاسبية والضريبية للشركات والأفراد باحترافية ودقة عالية.",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="ar" dir="rtl">
       <head>
-        {/* Favicon icon from public folder */}
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {/* أيقونة الموقع (Favicon) */}
+        <link rel="icon" href="/favicon.svg" type="image/svg" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-gray-900`}>
         {children}
       </body>
     </html>

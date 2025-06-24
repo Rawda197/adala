@@ -1,70 +1,45 @@
-"use client";
-
-import Link from "next/link";
-
-const Footer = () => {
+export default function Footer() {
   return (
-    <footer className="bg-[#0f172a] text-white pt-16 pb-8">
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
-
-        {/* About Section */}
+    <footer className="bg-gray-900 text-white pt-12 pb-6 px-4 sm:px-8 mt-20">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 text-right">
+        
+        {/* عمود عن الشركة */}
         <div>
-          <h3 className="text-xl font-bold mb-4">About Growth Marketing</h3>
-          <p className="text-sm text-white leading-relaxed opacity-80">
-            Growth Marketing is a leading digital solutions provider, offering smart, scalable, and creative marketing strategies to boost your business performance and online presence.
+          <h3 className="text-xl font-bold text-green-400 mb-4">عن شركة Balance</h3>
+          <p className="text-sm leading-relaxed text-gray-300">
+            شركة متخصصة في تقديم الحلول المحاسبية والمالية للشركات الصغيرة والمتوسطة،
+            نسعى إلى تحسين الأداء المالي وتوفير الاستشارات الذكية التي تساعد على النمو والاستدامة.
           </p>
         </div>
 
-        {/* Services */}
+        {/* عمود الخدمات */}
         <div>
-          <h3 className="text-xl font-bold mb-4">Services</h3>
-          <ul className="space-y-2 text-sm text-white opacity-90">
-            <li><Link className="hover:text-primary transition duration-300" href="/services/social-media-marketing">Social Media Marketing</Link></li>
-            <li><Link className="hover:text-primary transition duration-300" href="/services/performance-advertising">Performance Advertising</Link></li>
-            <li><Link className="hover:text-primary transition duration-300" href="/services/seo-optimization">SEO Optimization</Link></li>
-            <li><Link className="hover:text-primary transition duration-300" href="/services/email-marketing">Email Marketing</Link></li>
-            <li><Link className="hover:text-primary transition duration-300" href="/services/web-design">Web Design</Link></li>
+          <h3 className="text-xl font-bold text-green-400 mb-4">خدماتنا</h3>
+          <ul className="text-sm text-gray-300 space-y-2">
+            <li>إعداد الميزانيات</li>
+            <li>المحاسبة الضريبية</li>
+            <li>إدارة الرواتب</li>
+            <li>الاستشارات المالية</li>
+            <li>تحليل الأداء والتكاليف</li>
           </ul>
         </div>
 
-        {/* Quick Links */}
+        {/* عمود التواصل */}
         <div>
-          <h3 className="text-xl font-bold mb-4">Quick Links</h3>
-          <ul className="space-y-2 text-sm text-white opacity-90">
-            <li><Link className="hover:text-primary transition duration-300" href="/">Home</Link></li>
-            <li><Link className="hover:text-primary transition duration-300" href="/about">About Us</Link></li>
-            <li><Link className="hover:text-primary transition duration-300" href="/services">Services</Link></li>
-            <li><Link className="hover:text-primary transition duration-300" href="/contact">Contact</Link></li>
-            <li><Link className="hover:text-primary transition duration-300" href="/articles">Blog</Link></li>
+          <h3 className="text-xl font-bold text-green-400 mb-4">تواصل معنا</h3>
+          <ul className="text-sm text-gray-300 space-y-2">
+            <li>📍 القاهرة، مصر</li>
+            <li>📞 +20 102 123 4567</li>
+            <li>📧 info@Balance.com</li>
+            <li>🕐 من الأحد إلى الخميس 9ص - 5م</li>
           </ul>
         </div>
-
-        {/* Contact Info */}
-        <div>
-          <h3 className="text-xl font-bold mb-4">Contact Us</h3>
-          <ul className="text-sm text-white opacity-90 space-y-2">
-            <li>Email: <span className="hover:text-primary transition duration-300">contact@Growth Marketing.com</span></li>
-            <li>Phone: <span className="hover:text-primary transition duration-300">+20 100 000 0000</span></li>
-            <li>Location: <span className="hover:text-primary transition duration-300">Cairo, Egypt</span></li>
-            <li>
-              Follow us:
-              <div className="flex gap-4 mt-2">
-                <Link className="hover:text-primary transition duration-300" href="#">Facebook</Link>
-                <Link className="hover:text-primary transition duration-300" href="#">Instagram</Link>
-                <Link className="hover:text-primary transition duration-300" href="#">LinkedIn</Link>
-              </div>
-            </li>
-          </ul>
-        </div>
-
       </div>
 
-      {/* Copyright */}
-      <div className="text-center text-sm text-gray-400 mt-12 border-t border-gray-700 pt-6">
-        © {new Date().getFullYear()} All rights reserved. Powered by <span className="text-white font-semibold">Ummah-Tech</span>
+      {/* الحقوق */}
+      <div className="mt-10 border-t border-gray-700 pt-4 text-center text-sm text-gray-400">
+        جميع الحقوق محفوظة © {new Date().getFullYear()} لشركة <span className="text-green-500 font-semibold">UmmahTech</span>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+// إعداد الخطوط
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -11,10 +12,11 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// البيانات الوصفية للموقع
 export const metadata = {
-  title: "مكتب ميزان للمحاسبة",
+  title: "مكتب عدالة للمحاماة",
   description:
-    "مكتب ميزان هو مكتب محاسبة متخصص في تقديم الحلول المحاسبية والضريبية للشركات والأفراد باحترافية ودقة عالية.",
+    "مكتب عدالة هو مكتب محاماة يقدم خدمات قانونية شاملة للأفراد والشركات، مع التزام كامل بالعدالة والمهنية والسرية التامة.",
 };
 
 export default function RootLayout({ children }) {

@@ -1,66 +1,98 @@
 "use client";
 
-import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
+import Link from "next/link";
+import { useEffect, useState, useRef } from "react";
 
-const sliderImages = [
-  "/images/1.jpg",
-  "/images/2.jpg",
-  "/images/3.jpg",
-  "/images/4.jpg",
-  "/images/5.jpg",
-  "/images/6.jpg",
-  "/images/7.jpg",
-  "/images/8.jpg",
-];
+const Hero = () => {
+  const fullText = "نحن في عدالة، نؤمن أن الحق لا يُهدر";
+  const [displayedText, setDisplayedText] = useState("");
+  const [index, setIndex] = useState(0);
+  const [loopCount, setLoopCount] = useState(0);
+  const textRef = useRef(null);
+  const [startTyping, setStartTyping] = useState(false);
 
-export default function Hero() {
+  // مراقبة ظهور العنصر
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setDisplayedText("");
+          setIndex(0);
+          setLoopCount(0);
+          setStartTyping(true);
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    if (textRef.current) {
+      observer.observe(textRef.current);
+    }
+
+    return () => {
+      if (textRef.current) observer.unobserve(textRef.current);
+    };
+  }, []);
+
+  // تأثير الكتابة المتكرر 3 مرات فقط
+  useEffect(() => {
+    let interval;
+
+    if (startTyping && loopCount < 3) {
+      interval = setInterval(() => {
+        setDisplayedText((prev) =>
+          index < fullText.length ? prev + fullText[index] : ""
+        );
+        setIndex((prev) => {
+          if (prev < fullText.length - 1) {
+            return prev + 1;
+          } else {
+            // إعادة التكرار
+            setLoopCount((c) => c + 1);
+            setDisplayedText("");
+            return 0;
+          }
+        });
+      }, 100);
+    }
+
+    return () => clearInterval(interval);
+  }, [startTyping, index, loopCount]);
+
   return (
-    <section className="w-full">
-      <div className="grid grid-cols-1 lg:grid-cols-2">
-        {/* سلايدر الصور */}
-        <div className="h-[250px] md:h-[450px] lg:h-screen">
-          <Swiper
-            modules={[Autoplay, Pagination, Navigation]}
-            autoplay={{ delay: 3000 }}
-            loop={true}
-            pagination={{ clickable: true }}
-            navigation={true}
-            className="w-full h-full"
-          >
-            {sliderImages.map((src, index) => (
-              <SwiperSlide key={index}>
-                <div className="relative w-full h-full">
-                  <Image
-                    src={src}
-                    alt={`صورة محاسبة ${index + 1}`}
-                    fill
-                    className="object-cover"
-                    priority={index === 0}
-                  />
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
+    <section className="relative bg-gradient-to-b from-[#f1efef] to-[#555454] text-white pt-20 md:pt-48 pb-12 px-6 md:px-12 lg:px-32 overflow-hidden min-h-[80vh]">
+      {/* خلفية شفافة */}
+      <div className="absolute inset-0 bg-[url('/images/hero-bg.jpg')] bg-cover bg-center opacity-20 z-0"></div>
 
-        {/* النص الترحيبي */}
-        <div className="flex items-center justify-center bg-green-50 px-6 py-10 lg:py-0">
-          <div className="text-center lg:text-right max-w-xl">
-            <h1 className="text-2xl md:text-4xl font-bold text-green-800 mb-4">
-              مرحبًا بك في مكتب ميزان للمحاسبة
-            </h1>
-            <p className="text-gray-700 text-sm md:text-lg leading-relaxed">
-              نحن نقدم لك أفضل الحلول المحاسبية والاستشارات المالية بإتقان ومهنية،
-              لمساعدتك في تنمية أعمالك وتحقيق أهدافك بكل ثقة.
-            </p>
-          </div>
+      <div className="relative z-10 max-w-4xl mx-auto text-center">
+        <h1
+          ref={textRef}
+          className="text-2xl md:text-5xl font-bold mb-1 md:mb-2 leading-relaxed tracking-wide min-h-[80px]"
+        >
+          <span className="text-primary">{displayedText || fullText}</span>
+        </h1>
+
+        <p className="text-sm md:text-lg mb-4 md:mb-8 text-gray-300 tracking-wide leading-loose">
+          خبرة قانونية متميزة في تقديم الاستشارات، وصياغة العقود، والمرافعات أمام جميع المحاكم
+        </p>
+
+        <div className="flex justify-center gap-4 flex-wrap">
+          <Link
+            href="/services"
+            className="bg-primary text-white px-6 py-3 rounded-full text-sm md:text-base font-medium shadow-md transition-all duration-300 hover:bg-red-700 hover:scale-105"
+          >
+            تعرف على خدماتنا
+          </Link>
+          <Link
+            href="/contact"
+            className="bg-white text-black px-6 py-3 rounded-full text-sm md:text-base font-medium shadow-md transition-all duration-300 hover:bg-gray-200 hover:scale-105"
+          >
+            تواصل معنا
+          </Link>
         </div>
       </div>
     </section>
   );
-}
+};
+
+export default Hero;

@@ -43,14 +43,14 @@ export default function ContactSection() {
   };
 
   return (
-    <section className="bg-gray-50 py-12 px-4">
+    <section className="bg-[#f9f9f9] py-12 px-4">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-stretch text-right">
         {/* ✅ نموذج التواصل */}
         <form
           onSubmit={handleSubmit}
           className="bg-white rounded-2xl shadow-xl p-8 space-y-4 flex flex-col justify-between"
         >
-          <h2 className="text-3xl font-bold text-green-700 text-center mb-4">
+          <h2 className="text-3xl font-bold text-[#7a1c1c] text-center mb-4">
             تواصل معنا
           </h2>
 
@@ -92,10 +92,10 @@ export default function ContactSection() {
             className="w-full border border-gray-300 rounded-md p-3"
           >
             <option value="">اختر نوع الخدمة</option>
-            <option value="خدمة محاسبة">خدمة محاسبة</option>
-            <option value="استشارات مالية">استشارات مالية</option>
-            <option value="إعداد تقارير">إعداد تقارير</option>
-            <option value="خدمة مخصصة">خدمة مخصصة</option>
+            <option value="استشارة قانونية">استشارة قانونية</option>
+            <option value="صياغة عقود">صياغة عقود</option>
+            <option value="مرافعات ودفاع">مرافعات ودفاع</option>
+            <option value="خدمة أخرى">خدمة أخرى</option>
           </select>
 
           <textarea
@@ -109,13 +109,13 @@ export default function ContactSection() {
 
           <button
             type="submit"
-            className="bg-green-600 text-white py-2 px-6 rounded-full hover:bg-green-700 transition"
+            className="bg-[#7a1c1c] text-white py-2 px-6 rounded-full hover:bg-[#5c1212] transition"
           >
             إرسال
           </button>
 
           {sent && (
-            <div className="text-green-600 animate-bounce text-sm font-medium text-center">
+            <div className="text-[#7a1c1c] animate-bounce text-sm font-medium text-center">
               ✅ تم الإرسال بنجاح!
             </div>
           )}
@@ -124,23 +124,23 @@ export default function ContactSection() {
         {/* ✅ معلومات التواصل والخرائط والسوشيال */}
         <div className="flex flex-col justify-between space-y-6">
           <div className="space-y-4 text-sm text-gray-700">
-            <h3 className="text-xl font-bold text-green-800 mb-2">
-              معلومات الشركة
+            <h3 className="text-xl font-bold text-[#7a1c1c] mb-2">
+              معلومات التواصل
             </h3>
 
             <p className="flex items-center gap-2">
-              <FaMapMarkerAlt className="text-green-600" />
+              <FaMapMarkerAlt className="text-[#7a1c1c]" />
               زهراء المعادي - شارع الخمسين - القاهرة - مصر
             </p>
 
             <p className="flex items-center gap-2">
-              <FaPhone className="text-green-600" />
+              <FaPhone className="text-[#7a1c1c]" />
               01151432229
             </p>
 
             <p className="flex items-center gap-2">
-              <FaEnvelope className="text-green-600" />
-              info@ummahtech.com
+              <FaEnvelope className="text-[#7a1c1c]" />
+              info@adala-law.com
             </p>
           </div>
 
@@ -187,7 +187,7 @@ export default function ContactSection() {
             <a
               href="https://wa.me/201151432229"
               target="_blank"
-              className="text-gray-500 hover:text-[#25d366] transition"
+              className="text-gray-500 hover:text-[#d3255f] transition"
             >
               <FaWhatsapp />
             </a>

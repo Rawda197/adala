@@ -1,93 +1,97 @@
-import services from "../../../data/servicesData";
-import Image from "next/image";
-import Link from "next/link";
-import { notFound } from "next/navigation";
+"use client";
+
+import { useParams, useRouter } from "next/navigation";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
+import servicesData from "../../../data/servicesData";
 
-export default function ServiceDetail({ params }) {
-  const service = services.find((s) => s.slug === params.slug);
+const ServiceDetailsPage = () => {
+  const { slug } = useParams();
+  const router = useRouter();
 
-  if (!service) return notFound();
+  const service = servicesData.find((s) => s.slug === slug);
 
-  // الخدمات ذات الصلة (نستبعد الخدمة الحالية ونأخذ 3 عشوائيين)
-  const relatedServices = services
-    .filter((s) => s.slug !== service.slug)
-    .sort(() => 0.5 - Math.random()) // ترتيب عشوائي
-    .slice(0, 3); // أول 3 فقط
+  if (!service) return <p className="text-center mt-20">الخدمة غير موجودة</p>;
 
   return (
-    <>
+    <div>
       <Header />
 
-      <section className="py-10 px-4 sm:px-6 lg:px-20 bg-white min-h-screen">
-        {/* صورة الخدمة */}
-        <div className="w-full h-64 md:h-96 relative rounded-lg overflow-hidden shadow-lg mb-8">
-          <Image
-            src={service.image}
-            alt={service.title}
-            layout="fill"
-            objectFit="cover"
-            className="rounded-md"
-            priority
-          />
+      {/* تفاصيل الخدمة */}
+      <section className="px-6 md:px-20 py-16 bg-gray-50 text-right">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+          {/* الصورة - تظهر فوق في الشاشات الصغيرة */}
+          <div className="order-1 md:order-2">
+            <img
+              src={service.image}
+              alt={service.title}
+              className="w-full h-auto rounded-xl shadow-md"
+            />
+          </div>
+
+          {/* العنوان + التفاصيل */}
+          <div className="order-2 md:order-1">
+            <h1 className="text-2xl md:text-4xl font-bold text-[#7a1c1c] mb-6">
+              {service.title}
+            </h1>
+            <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+              {service.fullDescription}
+            </p>
+
+            <button
+              onClick={() => router.back()}
+              className="mt-6 inline-block bg-[#7a1c1c] text-white px-6 py-2 rounded-full hover:bg-red-700 transition"
+            >
+              العودة للخلف
+            </button>
+          </div>
         </div>
-
-        {/* محتوى الخدمة */}
-        <h1 className="text-3xl font-bold text-green-800 mb-4">{service.title}</h1>
-        <p className="text-gray-700 text-lg mb-6 leading-relaxed">{service.details}</p>
-
-        {/* المميزات */}
-        {service.features && (
-          <ul className="list-disc list-inside text-green-700 space-y-2 mb-6">
-            {service.features.map((feature, index) => (
-              <li key={index}>{feature}</li>
-            ))}
-          </ul>
-        )}
-
-        {/* زر العودة */}
-        <Link
-          href="/services"
-          className="inline-block mt-4 bg-green-600 text-white px-5 py-2 rounded-md hover:bg-green-700 transition"
-        >
-          ← العودة إلى جميع الخدمات
-        </Link>
       </section>
 
-      {/* خدمات ذات صلة */}
-      <section className="py-10 px-4 sm:px-6 lg:px-20 bg-gray-50">
-        <h2 className="text-2xl text-center font-bold text-green-800 mb-6">خدمات ذات صلة</h2>
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {relatedServices.map((item) => (
-            <Link
-              key={item.slug}
-              href={`/services/${item.slug}`}
-              className="group rounded-lg overflow-hidden shadow-md bg-white hover:shadow-xl transition-all duration-300"
-            >
-              <div className="relative w-full h-48">
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  layout="fill"
-                  objectFit="cover"
-                  className="group-hover:scale-105 transition-transform duration-300"
-                />
+      {/* خدمات أخرى */}
+      <section className="bg-white py-16 px-6 md:px-20 text-center">
+        <h2 className="text-2xl md:text-3xl font-bold text-[#7a1c1c] mb-10">
+          خدمات أخرى
+        </h2>
+
+        <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {servicesData
+            .filter((s) => s.slug !== slug)
+            .slice(0, 3)
+            .map((item, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 hover:border-[#7a1c1c] transition transform hover:rotate-1"
+              >
+                <div className="w-full h-48 overflow-hidden relative">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="object-cover w-full h-full"
+                  />
+                </div>
+                <div className="p-5 text-right">
+                  <h3 className="text-xl font-bold text-[#7a1c1c] mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm mb-3">
+                    {item.shortDescription}
+                  </p>
+                  <a
+                    href={`/services/${item.slug}`}
+                    className="inline-block text-sm text-white bg-[#7a1c1c] px-5 py-2 rounded-full hover:bg-red-700 transition"
+                  >
+                    قراءة المزيد →
+                  </a>
+                </div>
               </div>
-              <div className="p-5">
-                <h3 className="text-xl font-bold text-green-700 mb-2 group-hover:text-green-900 transition-colors">
-                  {item.title}
-                </h3>
-                <p className="text-gray-600 text-sm leading-relaxed line-clamp-3">
-                  {item.description}
-                </p>
-              </div>
-            </Link>
-          ))}
+            ))}
         </div>
       </section>
 
       <Footer />
-    </>
+    </div>
   );
-}
+};
+
+export default ServiceDetailsPage;

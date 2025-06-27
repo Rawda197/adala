@@ -23,7 +23,7 @@ export default function AboutUs() {
         </div>
         <div className="flex justify-center">
           <Image
-            src="/images/About.jpg"
+            src="/images/twst.jpg"
             alt="عن الشركة"
             width={500}
             height={400}
